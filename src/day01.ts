@@ -12,7 +12,7 @@ function part1(): number {
 }
 
 function part2(): number {
-    let sum = (a: number, b: number) => a + b;
+    const sum = (a: number, b: number) => a + b;
 
     let increasedWindowCount = 0;
     let previousWindow = measurements.slice(0, 3).reduce(sum);
@@ -24,5 +24,5 @@ function part2(): number {
     return increasedWindowCount;
 }
 
-console.log("Outcome of part 1:", part1());
-console.log("Outcome of part 2:", part2());
+console.log("Outcome day 1 part 1:", part1());
+console.log("Outcome day 1 part 2:", part2());
