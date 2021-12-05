@@ -25,7 +25,7 @@ function part1(): number {
     return parseInt(gammaRate, 2) * parseInt(epsilonRate, 2);
 }
 
-function part1_reduce(): number {
+function part1Reduce(): number {
     // This is actually faster than vanilla loops, huh.
     const sumPerColumn = new Proxy([], {
         get: (target: number[], index: any) => index in target ? target[index] : 0
@@ -46,17 +46,37 @@ function part1_reduce(): number {
 
 
 function part2(): number {
-    return 0;
+    let countPositiveBits = (input: string[], index: number) => {
+        let bitCount = 0;
+        input.forEach(sequence => {
+            const bit = sequence.charAt(index);
+            if (bit === "1") bitCount++;
+        });
+        return bitCount;
+    };
+
+    let oxygenRating = (input: string[], index: number): string => {
+        const postiveBitCount = countPositiveBits(input, index);
+        let keep = postiveBitCount >= input.length / 2 ? "1" : "0";
+        const newInput = input.filter(value => value.charAt(index) === keep);
+
+        if (newInput.length === 1) return newInput[0];
+        return oxygenRating(newInput, index + 1);
+    };
+    let co2Rating = (input: string[], index: number): string => {
+        const postiveBitCount = countPositiveBits(input, index);
+        let keep = postiveBitCount >= input.length / 2 ? "0" : "1";
+
+        const newInput = input.filter(value => value.charAt(index) === keep);
+
+        if (newInput.length === 1) return newInput[0];
+
+        return co2Rating(newInput, index + 1);
+    };
+    return parseInt(oxygenRating(fileLines, 0), 2) * parseInt(co2Rating(fileLines, 0), 2);
 }
 
-let s1 = performance.now();
+
 console.log("Outcome day 3 part 1:", part1());
-let e1 = performance.now();
-console.log(`Vanilla loops took ${e1 - s1} milliseconds`);
-
-let s2 = performance.now();
-console.log("Outcome day 3 part 1:", part1_reduce());
-let e2 = performance.now();
-console.log(`Reduce took ${e2 - s2} milliseconds`);
-
+console.log("Outcome day 3 part 1 (with reduce):", part1Reduce());
 console.log("Outcome day 3 part 2:", part2());
