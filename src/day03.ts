@@ -46,7 +46,7 @@ function part1Reduce(): number {
 
 
 function part2(): number {
-    let countPositiveBits = (input: string[], index: number) => {
+    const countPositiveBits = (input: string[], index: number) => {
         let bitCount = 0;
         input.forEach(sequence => {
             const bit = sequence.charAt(index);
@@ -55,7 +55,7 @@ function part2(): number {
         return bitCount;
     };
 
-    let oxygenRating = (input: string[], index: number): string => {
+    const oxygenRating = (input: string[], index: number): string => {
         const postiveBitCount = countPositiveBits(input, index);
         let keep = postiveBitCount >= input.length / 2 ? "1" : "0";
         const newInput = input.filter(value => value.charAt(index) === keep);
@@ -63,7 +63,7 @@ function part2(): number {
         if (newInput.length === 1) return newInput[0];
         return oxygenRating(newInput, index + 1);
     };
-    let co2Rating = (input: string[], index: number): string => {
+    const co2Rating = (input: string[], index: number): string => {
         const postiveBitCount = countPositiveBits(input, index);
         let keep = postiveBitCount >= input.length / 2 ? "0" : "1";
 
