@@ -11,5 +11,5 @@ function part2(): number {
     return 0;
 }
 
-console.log("Outcome day 4 part 1:", part1());
-console.log("Outcome day 4 part 2:", part2());
+console.log("Outcome day 5 part 1:", part1());
+console.log("Outcome day 5 part 2:", part2());
