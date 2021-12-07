@@ -17,7 +17,17 @@ function part1(): number {
 }
 
 function part2(): number {
-    return 0;
+    const maxPosition = Math.max(...fileLines);
+    let fuelConsumption = Infinity;
+    for (let position = 0; position <= maxPosition; position++) {
+        const fuelNeeded = fileLines.reduce((previous, currentPosition) => {
+            const stepsToPosition = Math.abs(currentPosition - position);
+            return previous + (stepsToPosition * (stepsToPosition + 1) / 2);
+        }, 0);
+        if (fuelNeeded < fuelConsumption) fuelConsumption = fuelNeeded;
+        if (fuelNeeded == 98039527) console.log(position);
+    }
+    return fuelConsumption;
 }
 
 console.log("Outcome day 7 part 1:", part1());
